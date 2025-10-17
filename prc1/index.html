@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+</head>
+<body>
+<div class="container">
+    <h1>Vote for Your Favorite Language</h1>
+    <div id="buttons">
+        <button class="button4" onclick="vote('Python')">Python</button>
+        <button class="button4" onclick="vote('JavaScript')">JavaScript</button>
+        <button class="button4" onclick="vote('Java')">Java</button>
+        <button class="button4" onclick="vote('C++')">C++</button>
+    </div>
+
+    <h2>Results</h2>
+    <ul id="results-list">
+        <li>Python: 0 votes</li>
+        <li>JavaScript: 0 votes</li>
+        <li>Java: 0 votes</li>
+        <li>C++: 0 votes</li>
+    </ul>
+</div>
+
+<script src="vote.js"></script>
+</body>
+</html>
