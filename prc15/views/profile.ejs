@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Portal - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .session-info {
+            background: #ecf0f1;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .session-info h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #bdc3c7;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .info-value {
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="header">
+            <h1>📚 Library Portal</h1>
+            <p>Welcome to your profile</p>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-message">
+                <h2>Hello, <%= user.name %>! 👋</h2>
+                <p>You are successfully logged into the library portal.</p>
+            </div>
+            
+            <div class="session-info">
+                <h2>📊 Session Information</h2>
+                
+                <div class="info-item">
+                    <span class="info-label">👤 Name:</span>
+                    <span class="info-value"><%= user.name %></span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">🕐 Login Time:</span>
+                    <span class="info-value"><%= user.loginTime %></span>
+                </div>
+                
+                <div class="info-item">
+                    <span class="info-label">🔐 Session Status:</span>
+                    <span class="info-value">Active</span>
+                </div>
+            </div>
+            
+            <form method="POST" action="/logout">
+                <button type="submit" class="logout-btn">
+                    🚪 Logout from Library
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
