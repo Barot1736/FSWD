@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student - Tuition Admin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 2em; margin-bottom: 10px; }
+        
+        .content { padding: 40px; }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn:hover { transform: translateY(-2px); }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✏️ Edit Student</h1>
+            <p>Update student information</p>
+        </div>
+        
+        <div class="content">
+            <% if (error) { %>
+                <div class="error">❌ <%= error %></div>
+            <% } %>
+            
+            <form method="POST" action="/update/<%= student._id %>">
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" value="<%= student.name %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" value="<%= student.email %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone *</label>
+                    <input type="tel" id="phone" name="phone" value="<%= student.phone %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="class">Class *</label>
+                    <select id="class" name="class" required>
+                        <option value="10th" <%= student.class === '10th' ? 'selected' : '' %>>10th Grade</option>
+                        <option value="11th" <%= student.class === '11th' ? 'selected' : '' %>>11th Grade</option>
+                        <option value="12th" <%= student.class === '12th' ? 'selected' : '' %>>12th Grade</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="Mathematics" <%= student.subject === 'Mathematics' ? 'selected' : '' %>>Mathematics</option>
+                        <option value="Physics" <%= student.subject === 'Physics' ? 'selected' : '' %>>Physics</option>
+                        <option value="Chemistry" <%= student.subject === 'Chemistry' ? 'selected' : '' %>>Chemistry</option>
+                        <option value="Biology" <%= student.subject === 'Biology' ? 'selected' : '' %>>Biology</option>
+                        <option value="English" <%= student.subject === 'English' ? 'selected' : '' %>>English</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fees">Monthly Fees *</label>
+                    <input type="number" id="fees" name="fees" value="<%= student.fees %>" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Update Student</button>
+                <a href="/" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

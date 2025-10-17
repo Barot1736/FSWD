@@ -1,0 +1,14 @@
+{
+  "name": "recipe-sharing-platform",
+  "version": "1.0.0",
+  "description": "A full-stack MERN application for sharing recipes",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build"
+  },
+  "keywords": ["mern", "react", "nodejs", "mongodb", "recipes"],
+  "author": "Your Name",
+  "license": "MIT"
+}
