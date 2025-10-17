@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Calculator 🧮</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .operation-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .operation-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .operation-btn.add { background: #48bb78; color: white; }
+        .operation-btn.subtract { background: #ed8936; color: white; }
+        .operation-btn.multiply { background: #9f7aea; color: white; }
+        .operation-btn.divide { background: #38b2ac; color: white; }
+
+        .operation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .operation-btn.selected {
+            transform: scale(0.95);
+            box-shadow: inset 0 3px 7px rgba(0,0,0,0.2);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .result.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+        }
+
+        .result.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .calculator-container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .operation-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>🧮 Kids Calculator 🧮</h1>
+        
+        <form method="POST" action="/calculate">
+            <div class="form-group">
+                <label for="num1">First Number:</label>
+                <input type="number" id="num1" name="num1" step="any" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="num2">Second Number:</label>
+                <input type="number" id="num2" name="num2" step="any" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Choose Operation:</label>
+                <div class="operation-group">
+                    <label>
+                        <input type="radio" name="operation" value="add" required>
+                        <button type="button" class="operation-btn add" onclick="selectOperation(this, 'add')">
+                            ➕ Add
+                        </button>
+                    </label>
+                    <label>
+                        <input type="radio" name="operation" value="subtract" required>
+                        <button type="button" class="operation-btn subtract" onclick="selectOperation(this, 'subtract')">
+                            ➖ Subtract
+                        </button>
+                    </label>
+                    <label>
+                        <input type="radio" name="operation" value="multiply" required>
+                        <button type="button" class="operation-btn multiply" onclick="selectOperation(this, 'multiply')">
+                            ✖️ Multiply
+                        </button>
+                    </label>
+                    <label>
+                        <input type="radio" name="operation" value="divide" required>
+                        <button type="button" class="operation-btn divide" onclick="selectOperation(this, 'divide')">
+                            ➗ Divide
+                        </button>
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="calculate-btn">🚀 Calculate!</button>
+        </form>
+        
+        <% if (result !== null) { %>
+            <div class="result success">
+                <span class="emoji">🎉</span>
+                Result: <%= result %>
+                <span class="emoji">🎉</span>
+            </div>
+        <% } %>
+        
+        <% if (error) { %>
+            <div class="result error">
+                <span class="emoji">⚠️</span>
+                <%= error %>
+                <span class="emoji">⚠️</span>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        function selectOperation(button, operation) {
+            // Remove selected class from all buttons
+            document.querySelectorAll('.operation-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked button
+            button.classList.add('selected');
+            
+            // Select the corresponding radio button
+            document.querySelector(`input[value="${operation}"]`).checked = true;
+        }
+        
+        // Add some fun interactions
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value && !isNaN(this.value)) {
+                    this.style.borderColor = '#48bb78';
+                } else {
+                    this.style.borderColor = '#e2e8f0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
