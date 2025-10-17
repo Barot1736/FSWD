@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculation History</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Income Calculation History</h1>
+        
+        <div class="action-buttons">
+            <a href="/" class="btn primary">New Calculation</a>
+            <button onclick="exportHistory()" class="btn secondary">Export Data</button>
+        </div>
+
+        <!-- History will be populated by JavaScript -->
+        <div id="calculation-history" class="history-section">
+            <p>Loading history...</p>
+        </div>
+    </div>
+
+    <script src="/javascripts/localStorage.js"></script>
+    <script>
+        // Export history as JSON
+        function exportHistory() {
+            const calculations = incomeStorage.getCalculations();
+            if (calculations.length === 0) {
+                alert('No history to export.');
+                return;
+            }
+
+            const dataStr = JSON.stringify(calculations, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'income-calculations-' + new Date().toISOString().split('T')[0] + '.json';
+            link.click();
+        }
+    </script>
+</body>
+</html>

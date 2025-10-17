@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tax Form - Income Entry</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Your Income</h1>
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        
+        <form action="/calculate" method="POST" id="income-form">
+            <label for="income1">Income Source 1:</label>
+            <input type="text" id="income1" name="income1" value="<%= values.income1 %>" required>
+
+            <label for="income2">Income Source 2:</label>
+            <input type="text" id="income2" name="income2" value="<%= values.income2 %>" required>
+
+            <button type="submit">Calculate Total Income</button>
+            <button type="button" onclick="clearFormData()" class="secondary-btn">Clear Form</button>
+        </form>
+
+        <div class="action-buttons">
+            <a href="/history" class="btn secondary">View History</a>
+        </div>
+
+        <!-- Calculation History Section -->
+        <div id="calculation-history" class="history-section">
+            <!-- History will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script src="/javascripts/localStorage.js"></script>
+    <script>
+        // Clear form data and localStorage
+        function clearFormData() {
+            if (confirm('Clear current form data?')) {
+                document.getElementById('income1').value = '';
+                document.getElementById('income2').value = '';
+                incomeStorage.clearCurrentData();
+            }
+        }
+
+        // Form submission handler to clear current data after successful submission
+        document.getElementById('income-form').addEventListener('submit', function() {
+            // Clear current form data since we're moving to results
+            setTimeout(() => {
+                incomeStorage.clearCurrentData();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

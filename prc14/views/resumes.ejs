@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal - Uploaded Resumes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: #4a5568;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: #2d3748;
+            transform: translateY(-2px);
+        }
+
+        .resume-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .resume-item {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .resume-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .resume-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
+        }
+
+        .no-files {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .no-files h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            background: #e6fffa;
+            border: 2px solid #38b2ac;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .stats h3 {
+            color: #234e52;
+            margin-bottom: 10px;
+        }
+
+        .stats p {
+            color: #285e61;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📁 Uploaded Resumes</h1>
+            <p>Manage and download submitted resumes</p>
+        </div>
+        
+        <div class="content">
+            <a href="/" class="nav-link">← Back to Upload</a>
+            
+            <% if (error) { %>
+                <div class="error">
+                    ❌ <%= error %>
+                </div>
+            <% } %>
+            
+            <% if (files && files.length > 0) { %>
+                <div class="stats">
+                    <h3>📊 Resume Statistics</h3>
+                    <p><strong><%= files.length %></strong> resume(s) uploaded</p>
+                </div>
+                
+                <div class="resume-list">
+                    <% files.forEach(function(file) { %>
+                        <div class="resume-item">
+                            <div class="resume-name">
+                                📄 <%= file %>
+                            </div>
+                            <a href="/download/<%= file %>" class="download-btn">
+                                ⬇️ Download Resume
+                            </a>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="no-files">
+                    <h3>📭 No Resumes Found</h3>
+                    <p>No resumes have been uploaded yet.</p>
+                    <p>Encourage candidates to submit their applications!</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

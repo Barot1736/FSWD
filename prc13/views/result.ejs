@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Income Total</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Total Income Result</h1>
+        <div class="result-display">
+            <p><strong>Income Source 1:</strong> $<%= income1.toFixed(2) %></p>
+            <p><strong>Income Source 2:</strong> $<%= income2.toFixed(2) %></p>
+            <hr>
+            <p class="total"><strong>Total Income:</strong> $<%= total.toFixed(2) %></p>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="btn primary">Calculate Another</a>
+            <a href="/history" class="btn secondary">View History</a>
+            <button onclick="saveToHistory()" class="btn secondary" id="save-btn">Save to History</button>
+        </div>
+
+        <!-- Success message for saved calculations -->
+        <div id="save-message" class="save-message" style="display: none;">
+            ✓ Calculation saved to history!
+        </div>
+    </div>
+
+    <script src="/javascripts/localStorage.js"></script>
+    <script>
+        // Auto-save calculation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the calculation data from the page
+            const income1 = parseFloat('<%= income1 %>');
+            const income2 = parseFloat('<%= income2 %>');
+            const total = parseFloat('<%= total %>');
+            
+            // Automatically save to history
+            saveCalculationToHistory(income1, income2, total);
+        });
+
+        function saveCalculationToHistory(income1, income2, total) {
+            try {
+                const savedCalculation = incomeStorage.saveCalculation(income1, income2, total);
+                console.log('Calculation saved:', savedCalculation);
+                
+                // Show success message
+                const messageDiv = document.getElementById('save-message');
+                messageDiv.style.display = 'block';
+                
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 3000);
+                
+                // Update button text to indicate it's saved
+                const saveBtn = document.getElementById('save-btn');
+                saveBtn.textContent = 'Saved ✓';
+                saveBtn.disabled = true;
+                
+            } catch (error) {
+                console.error('Error saving calculation:', error);
+                alert('Error saving calculation to history.');
+            }
+        }
+
+        function saveToHistory() {
+            // This function is for manual save (though we auto-save)
+            const income1 = parseFloat('<%= income1 %>');
+            const income2 = parseFloat('<%= income2 %>');
+            const total = parseFloat('<%= total %>');
+            
+            saveCalculationToHistory(income1, income2, total);
+        }
+    </script>
+</body>
+</html>
